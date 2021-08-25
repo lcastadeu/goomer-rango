@@ -1,6 +1,5 @@
 import express from 'express';
 import { ReturnMessage } from './infraestructure/return_message';
-import { DatabaseCommand } from './infraestructure/database/database.command';
 
 const api = express();
 
