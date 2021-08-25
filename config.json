@@ -1,0 +1,9 @@
+{
+  "development": {
+    "user": "postgres",
+    "host": "localhost",
+    "database": "goomer",
+    "password": "postgres",
+    "port": 5432
+  }
+}
