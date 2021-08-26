@@ -79,7 +79,7 @@ CREATE TABLE  IF NOT EXISTS public.horario_restaurante (
     foreign key (id_restaurante)
     references public.restaurante(id)
     on update cascade
-    on delete no action
+    on delete cascade
 );
 
 CREATE TABLE  IF NOT EXISTS public.horario_promocao_produto (
@@ -95,5 +95,5 @@ CREATE TABLE  IF NOT EXISTS public.horario_promocao_produto (
     foreign key (id_promocao_produto)
     references public.promocao_produto(id)
     on update cascade
-    on delete no action
+    on delete cascade
 );
