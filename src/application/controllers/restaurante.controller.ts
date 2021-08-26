@@ -14,15 +14,20 @@ export class RestauranteController extends AbstractController {
 
   async all() {
     try {
-      return await new ReturnMessage(await this.service.get());
+      return await new ReturnMessage(await this.service.findAll());
     } catch (error) {
       return new ReturnMessage(error).setStatusCode(HttpRequestCode.BadRequest);
     }
   }
 
-  async get(id?: number) {
+  async get(id: number) {
     try {
-      return await new ReturnMessage(await this.service.get(id));
+
+      if(!id) {
+        throw new Error(`Código não informado. Por favor, informár um código válido!`);
+      }
+
+      return await new ReturnMessage(await this.service.find(id));
     } catch (error) {
       return new ReturnMessage(error).setStatusCode(HttpRequestCode.BadRequest);
     }
