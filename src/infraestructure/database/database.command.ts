@@ -18,9 +18,6 @@ export class DatabaseCommand {
       })
       .catch(error => {
         throw new Error(`Erro ao realizar consulta no banco de dados! ${error}`)
-      })
-      .finally(() => {
-        database.end();
       });
   }
   

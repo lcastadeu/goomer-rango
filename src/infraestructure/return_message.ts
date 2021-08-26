@@ -12,6 +12,7 @@ export class ReturnMessage {
     this.data = data;
     this.statusCode = HttpRequestCode.Ok;
     this.message = "Operação realizada com sucesso!";
+    console.log(this);
   }
 
   public setStatusCode(statusCode: HttpRequestCode) {
