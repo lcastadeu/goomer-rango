@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/lcastadeu/goomer-rango#readme",
   "dependencies": {
+    "@types/body-parser": "^1.19.1",
     "@types/express": "^4.17.13",
     "@types/pg": "^8.6.1",
     "express": "^4.17.1",

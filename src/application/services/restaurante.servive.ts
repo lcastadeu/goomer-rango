@@ -1,20 +1,10 @@
 import { AbstractService } from './abstract.service';
 import { Restaurante } from '../../domain/entities/restaurante.entity';
-export class RestauranteService extends AbstractService {
-  
-  async find(id: number) {
+import { RestauranteRepository } from '../../domain/repositories/restaurante.repository';
+export class RestauranteService extends AbstractService<Restaurante> {
 
-  }
-
-  async findAll() {
-
-  }
-
-  async save(restaurante: Restaurante) {
-
-  }
-
-  async delete(id: number) {
+  constructor(protected repository: RestauranteRepository) {
+    super(repository);
 
   }
 }

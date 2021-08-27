@@ -5,9 +5,11 @@ import { ReturnMessage } from './infraestructure/return_message';
 import database from './infraestructure/database/database.connection';
 import { readFileSync } from 'fs';
 import * as path from 'path';
-
+import bodyParser from 'body-parser';
 
 const api = express();
+
+api.use(bodyParser());
 
 api.get('/', function (_, res) {
   res.status(HttpRequestCode.Ok).json(new ReturnMessage('Serviço Ativo!'));

@@ -13,6 +13,7 @@ export class DatabaseCommand {
 
   //Metodo reponsável por realizar consultas!
   async execSelectCommand(command: string, parameters?: any[]) {
+    console.log(command);
     return await this.connection.query(command, parameters)
       .then(data => {
         return data.rows;
@@ -25,7 +26,7 @@ export class DatabaseCommand {
   //Metodo responsável por realizar operações de inserção!
   //Alguns recursos foram obtidos atravez da documentação: https://node-postgres.com/features/transactions
   async execInsertCommand(tableName: string, fields: string[], values: any[]) {
-
+   
     if (fields.length !== values.length) {
       throw new Error(`Parametros de Inserção inválidos. Por favor, verificar.`);
     }
