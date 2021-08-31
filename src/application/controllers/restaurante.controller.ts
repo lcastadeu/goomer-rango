@@ -5,52 +5,11 @@ import { RestauranteService } from "../services/restaurante.service";
 import { RestauranteRepository } from "../../domain/repositories/restaurante.repository";
 import { Restaurante } from '../../domain/entities/restaurante.entity';
 
-export class RestauranteController extends AbstractController {
-
-  private service: RestauranteService;
+export class RestauranteController extends AbstractController<Restaurante> {
 
   constructor() {
-    super();
-    this.service = new RestauranteService(new RestauranteRepository());
+    super(new RestauranteService(new RestauranteRepository()));
   }
 
-  async all() {
-    try {
-      return await new ReturnMessage(await this.service.findAll())
-    } catch (error) {
-      return new ReturnMessage(error).setStatusCode(HttpRequestCode.BadRequest);
-    }
-  }
-
-  async get(id: number) {
-    try {
-      return await new ReturnMessage(await this.service.find(id));
-    } catch (error) {
-      return new ReturnMessage(error).setStatusCode(HttpRequestCode.BadRequest);
-    }
-  }
-
-  async store(restaurante: Restaurante) {
-    try {
-      return await new ReturnMessage(await this.service.save(restaurante));
-    } catch (error) {
-      return new ReturnMessage(error).setStatusCode(HttpRequestCode.BadRequest);
-    }
-  }
-
-  async update(id: number, restaurante: Restaurante) {
-    try {
-      return await new ReturnMessage(await this.service.update(id, restaurante));
-    } catch (error) {
-      return new ReturnMessage(error).setStatusCode(HttpRequestCode.BadRequest);
-    }
-  }
-
-  async destroy(id: number) {
-    try {
-      return await new ReturnMessage(await this.service.delete(id));
-    } catch (error) {
-      return new ReturnMessage(error).setStatusCode(HttpRequestCode.BadRequest);
-    }
-  }
+  
 }
