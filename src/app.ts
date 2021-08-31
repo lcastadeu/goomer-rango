@@ -6,6 +6,7 @@ import database from './infraestructure/database/database.connection';
 import { readFileSync } from 'fs';
 import * as path from 'path';
 import bodyParser from 'body-parser';
+import arquivoRoute from './application/route/arquivo.route';
 
 const api = express();
 
@@ -16,6 +17,7 @@ api.get('/', function (_, res) {
 });
 
 api.use('/api', restauranteRoute);
+api.use('/api', arquivoRoute);
 
 api.listen(3000, async () => {
 

@@ -29,6 +29,10 @@ export class AbstractService<T> {
     if (!id)
       throw new Error('Código não informado!');
 
+    const object = await this.find(id);
+    if (!object)
+      throw new Error('Registro não encontrado! Por favor, tente um registro válido.')
+
     return await this.repository.update(id, entidade);
   }
 
@@ -36,6 +40,10 @@ export class AbstractService<T> {
 
     if (!id)
       throw new Error('Código não informado!');
+
+    const object = await this.find(id);
+    if (!object)
+      throw new Error('Registro não encontrado! Por favor, tente um registro válido.')
 
     return await this.repository.delete(id);
   }

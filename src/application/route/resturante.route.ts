@@ -13,11 +13,11 @@ restauranteRoute.get('/restaurante/:id', async function (request, response) {
 });
 
 restauranteRoute.post('/restaurante', async function (request, response) {
-  await response.json(await response.send(await controller.store(await request.body)));
+  await response.json(await controller.store(request.body));
 });
 
 restauranteRoute.put('/restaurante/:id', async function (request, response) {
-  await response.send(await controller.update(Number(request.params.id), request.body));
+  await response.json(await controller.update(Number(request.params.id), request.body));
 });
 
 restauranteRoute.delete('/restaurante/:id', async function (request, response) {
