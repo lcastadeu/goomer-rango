@@ -1,7 +1,7 @@
 import { AbstractController } from "./abstract.controller";
 import { ReturnMessage } from '../../infraestructure/return_message';
 import { HttpRequestCode } from "../../infraestructure/enum/http_request_code.enum";
-import { RestauranteService } from "../services/restaurante.servive";
+import { RestauranteService } from "../services/restaurante.service";
 import { RestauranteRepository } from "../../domain/repositories/restaurante.repository";
 import { Restaurante } from '../../domain/entities/restaurante.entity';
 
@@ -33,6 +33,22 @@ export class RestauranteController extends AbstractController {
   async store(restaurante: Restaurante) {
     try {
       return await new ReturnMessage(await this.service.save(restaurante));
+    } catch (error) {
+      return new ReturnMessage(error).setStatusCode(HttpRequestCode.BadRequest);
+    }
+  }
+
+  async update(id: number, restaurante: Restaurante) {
+    try {
+      return await new ReturnMessage(await this.service.update(id, restaurante));
+    } catch (error) {
+      return new ReturnMessage(error).setStatusCode(HttpRequestCode.BadRequest);
+    }
+  }
+
+  async destroy(id: number) {
+    try {
+      return await new ReturnMessage(await this.service.delete(id));
     } catch (error) {
       return new ReturnMessage(error).setStatusCode(HttpRequestCode.BadRequest);
     }

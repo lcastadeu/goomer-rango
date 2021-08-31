@@ -9,6 +9,10 @@ export class AbstractService<T> {
   }
 
   async find(id: number) {
+    
+    if (!id)
+      throw new Error('Código não informado!');
+
     return await this.repository.find(id);
   }
 
@@ -20,7 +24,19 @@ export class AbstractService<T> {
     return await this.repository.save(entidade);
   }
 
+  async update(id: number, entidade: T) {
+
+    if (!id)
+      throw new Error('Código não informado!');
+
+    return await this.repository.update(id, entidade);
+  }
+
   async delete(id: number) {
 
+    if (!id)
+      throw new Error('Código não informado!');
+
+    return await this.repository.delete(id);
   }
 }

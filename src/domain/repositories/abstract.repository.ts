@@ -38,6 +38,9 @@ export class AbstractRepository<T> {
 
     if (!this.tableName)
       throw new Error('Nome da tabela não informada! Por favor, especificar');
+      
+
+    return await this.command.execUpdateCommand(this.tableName, id, Object.getOwnPropertyNames(object), Object.values(object));
   }
 
   async delete(id: number) {
@@ -45,7 +48,7 @@ export class AbstractRepository<T> {
     if (!this.tableName)
       throw new Error('Nome da tabela não informada! Por favor, especificar');
 
-    return await this.command.execSelectCommand(`DELETE FROM ${this.tableName} WHERE id = $1`, [id]);
+    return await this.command.execDeleteCommand(this.tableName, id);
   }
 
 }

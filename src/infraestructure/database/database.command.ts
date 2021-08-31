@@ -26,7 +26,7 @@ export class DatabaseCommand {
   //Metodo responsável por realizar operações de inserção!
   //Alguns recursos foram obtidos atravez da documentação: https://node-postgres.com/features/transactions
   async execInsertCommand(tableName: string, fields: string[], values: any[]) {
-   
+
     if (fields.length !== values.length) {
       throw new Error(`Parametros de Inserção inválidos. Por favor, verificar.`);
     }
@@ -61,25 +61,53 @@ export class DatabaseCommand {
       throw new Error(`Parametros de Inserção inválidos. Por favor, verificar.`);
     }
 
-    let value: string = '';
-    for (let index = 1; index <= fields.length; index++) {
-      value += `${fields} = \$${index}`;
-      if (index < fields.length) {
-        value += `, `;
+    let data = '';
+    let valueData: any[] = [];
+    for (let i = 0; i <= fields.length; i++) {
+      if (fields[i]) {
+        data += `${fields[i]} = \$${i+1}`;
+        valueData.push(values[i]);
+        if (i < fields.length)
+          data += ',';
       }
     }
 
-    const client = await this.connection.connect()
-    try {
-      await client.query('BEGIN')
-      const res = await client.query(`UPDATE ${tableName} SET  WHERE id = $1`, [id])
-      await client.query('COMMIT')
-      return res.rows[0];
-    } catch (error) {
-      await client.query('ROLLBACK')
-      throw new Error(`Erro ao realizar operação de Inserção de dados. Desfazendo Tranzação! ${error}`)
-    } finally {
-      client.release()
+    if (data.charAt(data.length - 1) === ',') {
+      data = data.substr(0, data.length - 1);
     }
+
+    const client = await this.connection.connect()
+    await client.query('BEGIN')
+    return await client.query(`UPDATE ${tableName} SET ${data} WHERE id = \$${data.split(',').length + 1} RETURNING *`, [...valueData, id]).then(x => {
+      client.query('COMMIT')
+      return x.rows[0];
+    }).catch(error => {
+      client.query('ROLLBACK');
+      throw new Error(`Erro ao realizar operação de exclusão de dados. Desfazendo Tranzação! ${error}`)
+    }).finally(() => {
+      client.release();
+    })
+  }
+
+
+  //Metodo responsável por realizar operações de inserção!
+  //Alguns recursos foram obtidos atravez da documentação: https://node-postgres.com/features/transactions
+  async execDeleteCommand(tableName: string, id: number) {
+
+    if (!id) {
+      throw new Error(`Código para exclusão não informado. Por favor, verificar.`);
+    }
+
+    const client = await this.connection.connect()
+    await client.query('BEGIN')
+    return await client.query(`DELETE FROM ${tableName} WHERE id = $1`, [id]).then(x => {
+      client.query('COMMIT')
+      return (x.rowCount > 0);
+    }).catch(error => {
+      client.query('ROLLBACK');
+      throw new Error(`Erro ao realizar operação de exclusão de dados. Desfazendo Tranzação! ${error}`)
+    }).finally(() => {
+      client.release();
+    })
   }
 }
