@@ -36,11 +36,17 @@ CREATE TABLE IF NOT EXISTS public.restaurante (
 
 CREATE TABLE IF NOT EXISTS public.produto (
   id SERIAL NOT NULL,
+  id_restaurante INT NOT NULL,
   nome VARCHAR(180) NOT NULL,
   preco DECIMAL(19,2) NOT NULL,
   id_categoria INT NOT NULL,
   id_foto INT NULL,
   constraint pk_produto primary key (id),
+  constraint fk_produto__restaurante
+    foreign key (id_restaurante)
+    references restaurante (id)
+    on update cascade
+    on delete cascade,
   constraint fk_produto__categoria_produto
     foreign key (id_categoria)
     references categoria_produto (id)
