@@ -13,7 +13,6 @@ export class DatabaseCommand {
 
   //Metodo reponsável por realizar consultas!
   async execSelectCommand(command: string, parameters?: any[]) {
-    console.log(command);
     return await this.connection.query(command, parameters)
       .then(data => {
         return data.rows;
@@ -62,19 +61,6 @@ export class DatabaseCommand {
     }).finally(() => {
       client.release();
     })
-
-  //   const client = await this.connection.connect()
-  //   try {
-  //     await client.query('BEGIN')
-  //     const res = await client.query(`INSERT INTO ${tableName} (${fields.join(',')}) VALUES (${value}) RETURNING *`, values)
-  //     await client.query('COMMIT')
-  //     return res.rows[0];
-  //   } catch (error) {
-  //     await client.query('ROLLBACK')
-  //     throw new Error(`Erro ao realizar operação de Inserção de dados. Desfazendo Tranzação! ${error}`)
-  //   } finally {
-  //     client.release()
-  //   }
   }
 
   //Metodo responsável por realizar operações de inserção!
