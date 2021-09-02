@@ -26,7 +26,7 @@ export class AbstractController<T> {
     }
   }
 
-  async store(entidade: T) {
+  async create(entidade: T) {
     try {
       return await new ReturnMessage(await this.service.save(entidade));
     } catch (error) {
