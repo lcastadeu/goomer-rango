@@ -40,7 +40,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Restaurante"
-
   /restaurante/create:
     post:
       tags:
@@ -171,7 +170,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CategoriaProduto"
-
   /categoriaproduto/create:
     post:
       tags:
@@ -256,8 +254,130 @@ paths:
                   message:
                     type: string
                   statusCode:
-                    type: integer
-
+                    type: integer 
+  
+  /produto:
+    get:
+      tags:
+      - "Produto"
+      summary: Retorna lista de restaurantes
+      operationId: "restauranteAll"
+      responses:
+        "200":
+          description: Retorna objeto contendo as informações do restaurante informado como parametro.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArrayOfCategoriaProduto"
+  /produto/{id}:
+    get:
+      tags:
+      - "Produto"
+      summary: Retorna categoria de produto especifica, com base no id informado
+      operationId: "categoriaProdutoById"
+      parameters:
+      - in: "path"
+        name: id
+        description: "Código da categoria a ser buscado"
+        schema:
+          type: integer
+        required: true
+      responses:
+        "200":
+          description: Retorna objeto contendo as informações do restaurante informado como parametro.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaProduto"
+  /produto/create:
+    post:
+      tags:
+      - "Produto"
+      summary: Adiciona uma nova categoria de produto, com base nas informações informadas
+      operationId: "categoriaProdutoCreate"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  nullable: false
+              required:
+                - nome
+                - endereco
+      responses:
+        "200":
+          description: Retorna objeto contendo as informações do restaurante informado como parametro.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaProduto"
+  /produto/edit/{id}:
+    put:
+      tags:
+      - "Produto"
+      summary: Atualiza as informações de uma determinada categoria de produto
+      operationId: "categoriaProdutoEdit"
+      parameters:
+      - in: "path"
+        name: id
+        description: "Código da categproa de produto a ser buscada"
+        schema:
+          type: integer
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  nullable: false
+              required:
+                - nome
+      responses:
+        "200":
+          description: Retorna objeto com as informações da alteração realizada.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaProduto"
+  /produto/delete/{id}:
+    delete:
+      tags:
+      - "Produto"
+      summary: Remove uma determinada categoria de produto
+      operationId: "categoriaProdutoDelete"
+      parameters:
+      - in: "path"
+        name: id
+        description: "Código da categoria a ser removido"
+        schema:
+          type: integer
+        required: true
+      responses:
+        "200":
+          description: Retorna objeto com as informações da alteração realizada.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: boolean
+                    nullable: false
+                    default: false
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer 
+  
+  ##Promocao
+  ##Horário Promocao
+  ##Horário Funcionamento
 
 components:
   schemas:
@@ -278,7 +398,6 @@ components:
         - id
         - nome
         - endereco
-
     ArrayOfRestaurante:
       type: array
       items:
@@ -294,7 +413,7 @@ components:
             type: integer
             nullable: true
             default: null
-
+    
     CategoriaProduto:
       type: object
       properties:
@@ -305,8 +424,27 @@ components:
       required:
         - id
         - nome
-
     ArrayOfCategoriaProduto:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+          nome:
+            type: string
+    
+    Produto:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+      required:
+        - id
+        - nome
+    ArrayOfProduto:
       type: array
       items:
         type: object
