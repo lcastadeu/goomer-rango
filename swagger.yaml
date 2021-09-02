@@ -260,66 +260,75 @@ paths:
     get:
       tags:
       - "Produto"
-      summary: Retorna lista de restaurantes
-      operationId: "restauranteAll"
+      summary: Retorna lista de produtos
+      operationId: "produtoAll"
       responses:
         "200":
-          description: Retorna objeto contendo as informações do restaurante informado como parametro.
+          description: Retorna JSon de objetos contendo as informações de todos os restaurantes.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ArrayOfCategoriaProduto"
+                $ref: "#/components/schemas/ArrayOfProduto"
   /produto/{id}:
     get:
       tags:
       - "Produto"
-      summary: Retorna categoria de produto especifica, com base no id informado
-      operationId: "categoriaProdutoById"
+      summary: Retorna produto especifica, com base no id informado
+      operationId: "produtoById"
       parameters:
       - in: "path"
         name: id
-        description: "Código da categoria a ser buscado"
+        description: "Código do produto a ser buscado"
         schema:
           type: integer
         required: true
       responses:
         "200":
-          description: Retorna objeto contendo as informações do restaurante informado como parametro.
+          description: Retorna objeto contendo as informações do produto.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CategoriaProduto"
+                $ref: "#/components/schemas/Produto"
   /produto/create:
     post:
       tags:
       - "Produto"
       summary: Adiciona uma nova categoria de produto, com base nas informações informadas
-      operationId: "categoriaProdutoCreate"
+      operationId: "produtoCreate"
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
+                id_restaurante:
+                  type: integer
                 nome:
                   type: string
-                  nullable: false
+                preco:
+                    type: number
+                id_categoria:
+                  type: integer
+                id_foto:
+                  type: integer
               required:
+                - id_restaurante
                 - nome
-                - endereco
+                - preco
+                - id_categoria
       responses:
         "200":
-          description: Retorna objeto contendo as informações do restaurante informado como parametro.
+          description: Retorna objeto contendo as informações do produto.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CategoriaProduto"
+                $ref: "#/components/schemas/Produto"
   /produto/edit/{id}:
     put:
       tags:
       - "Produto"
-      summary: Atualiza as informações de uma determinada categoria de produto
-      operationId: "categoriaProdutoEdit"
+      summary: Atualiza as informações de um determinadao produto
+      operationId: "produtoEdit"
       parameters:
       - in: "path"
         name: id
@@ -333,14 +342,24 @@ paths:
             schema:
               type: object
               properties:
+                id_restaurante:
+                  type: integer
                 nome:
                   type: string
-                  nullable: false
+                preco:
+                    type: number
+                id_categoria:
+                  type: integer
+                id_foto:
+                  type: integer
               required:
+                - id_restaurante
                 - nome
+                - preco
+                - id_categoria
       responses:
         "200":
-          description: Retorna objeto com as informações da alteração realizada.
+          description: Retorna objeto com as informações o produto, contendo as alterações
           content:
             application/json:
               schema:
@@ -349,18 +368,18 @@ paths:
     delete:
       tags:
       - "Produto"
-      summary: Remove uma determinada categoria de produto
-      operationId: "categoriaProdutoDelete"
+      summary: Remove um determinado produto
+      operationId: "produtoDelete"
       parameters:
       - in: "path"
         name: id
-        description: "Código da categoria a ser removido"
+        description: "Código do produto a ser removido"
         schema:
           type: integer
         required: true
       responses:
         "200":
-          description: Retorna objeto com as informações da alteração realizada.
+          description: Retorna um bolleano informando se deu certo a exclusão.
           content:
             application/json:
               schema:
@@ -439,11 +458,22 @@ components:
       properties:
         id:
           type: integer
+        id_restaurante:
+          type: integer
         nome:
           type: string
+        preco:
+            type: number
+        id_categoria:
+          type: integer
+        id_foto:
+          type: integer
       required:
         - id
+        - id_restaurante
         - nome
+        - preco
+        - id_categoria
     ArrayOfProduto:
       type: array
       items:
@@ -451,5 +481,19 @@ components:
         properties:
           id:
             type: integer
+          id_restaurante:
+            type: integer
           nome:
             type: string
+          preco:
+              type: number
+          id_categoria:
+            type: integer
+          id_foto:
+            type: integer
+        required:
+          - id
+          - id_restaurante
+          - nome
+          - preco
+          - id_categoria
