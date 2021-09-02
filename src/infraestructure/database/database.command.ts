@@ -13,6 +13,7 @@ export class DatabaseCommand {
 
   //Metodo reponsável por realizar consultas!
   async execSelectCommand(command: string, parameters?: any[]) {
+    console.log(command);
     return await this.connection.query(command, parameters)
       .then(data => {
         return data.rows;

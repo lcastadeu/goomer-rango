@@ -137,6 +137,126 @@ paths:
                     type: string
                   statusCode:
                     type: integer
+  
+  /categoriaproduto:
+    get:
+      tags:
+      - "Categoria Produto"
+      summary: Retorna lista de restaurantes
+      operationId: "restauranteAll"
+      responses:
+        "200":
+          description: Retorna objeto contendo as informações do restaurante informado como parametro.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArrayOfCategoriaProduto"
+  /categoriaproduto/{id}:
+    get:
+      tags:
+      - "Categoria Produto"
+      summary: Retorna categoria de produto especifica, com base no id informado
+      operationId: "categoriaProdutoById"
+      parameters:
+      - in: "path"
+        name: id
+        description: "Código da categoria a ser buscado"
+        schema:
+          type: integer
+        required: true
+      responses:
+        "200":
+          description: Retorna objeto contendo as informações do restaurante informado como parametro.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaProduto"
+
+  /categoriaproduto/create:
+    post:
+      tags:
+      - "Categoria Produto"
+      summary: Adiciona uma nova categoria de produto, com base nas informações informadas
+      operationId: "categoriaProdutoCreate"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  nullable: false
+              required:
+                - nome
+                - endereco
+      responses:
+        "200":
+          description: Retorna objeto contendo as informações do restaurante informado como parametro.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaProduto"
+  /categoriaproduto/edit/{id}:
+    put:
+      tags:
+      - "Categoria Produto"
+      summary: Atualiza as informações de uma determinada categoria de produto
+      operationId: "categoriaProdutoEdit"
+      parameters:
+      - in: "path"
+        name: id
+        description: "Código da categproa de produto a ser buscada"
+        schema:
+          type: integer
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  nullable: false
+              required:
+                - nome
+      responses:
+        "200":
+          description: Retorna objeto com as informações da alteração realizada.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaProduto"
+  /categoriaproduto/delete/{id}:
+    delete:
+      tags:
+      - "Categoria Produto"
+      summary: Remove uma determinada categoria de produto
+      operationId: "categoriaProdutoDelete"
+      parameters:
+      - in: "path"
+        name: id
+        description: "Código da categoria a ser removido"
+        schema:
+          type: integer
+        required: true
+      responses:
+        "200":
+          description: Retorna objeto com as informações da alteração realizada.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: boolean
+                    nullable: false
+                    default: false
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
 
 
 components:
@@ -174,4 +294,24 @@ components:
             type: integer
             nullable: true
             default: null
-          
+
+    CategoriaProduto:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+      required:
+        - id
+        - nome
+
+    ArrayOfCategoriaProduto:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+          nome:
+            type: string
