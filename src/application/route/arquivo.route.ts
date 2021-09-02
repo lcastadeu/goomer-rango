@@ -1,7 +1,7 @@
-import express from 'express';
+import { Router } from 'express';
 import { ArquivoController } from '../controllers/arquivo.controller';
 
-const arquivoRoute = express.Router();
+const arquivoRoute = Router();
 const controller = new ArquivoController();
 
 arquivoRoute.get('/restaurante', async function (request, response) {
@@ -13,7 +13,7 @@ arquivoRoute.get('/restaurante/:id', async function (request, response) {
 });
 
 arquivoRoute.post('/restaurante', async function (request, response) {
-  await response.json(await controller.store(request.body));
+  await response.json(await controller.create(request.body));
 });
 
 arquivoRoute.put('/restaurante/:id', async function (request, response) {

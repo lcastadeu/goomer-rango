@@ -1,26 +1,28 @@
-import express from 'express';
+import { Router } from 'express';
 import { RestauranteController } from '../controllers/restaurante.controller';
 
-const restauranteRoute = express.Router();
+const restauranteRoute = Router();
 const controller = new RestauranteController();
 
 restauranteRoute.get('/restaurante', async function (request, response) {
   await response.json(await controller.all());
 });
 
+
 restauranteRoute.get('/restaurante/:id', async function (request, response) {
   await response.json(await controller.get(Number(request.params.id)));
 });
 
-restauranteRoute.post('/restaurante', async function (request, response) {
-  await response.json(await controller.store(request.body));
+restauranteRoute.post('/restaurante/create', async function (request, response) {
+  await response.json(await controller.create(await request.body));
 });
 
-restauranteRoute.put('/restaurante/:id', async function (request, response) {
-  await response.json(await controller.update(Number(request.params.id), request.body));
+
+restauranteRoute.put('/restaurante/edit/:id', async function (request, response) {
+  await response.json(await controller.update(Number(request.params.id), await request.body));
 });
 
-restauranteRoute.delete('/restaurante/:id', async function (request, response) {
+restauranteRoute.delete('/restaurante/delete/:id', async function (request, response) {
   await response.json(await controller.destroy(Number(request.params.id)));
 });
 

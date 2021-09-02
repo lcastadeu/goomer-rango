@@ -1,0 +1,177 @@
+openapi: 3.0.0
+info:
+  title: Goome Rango
+  description: Solução proposta como desafio pela Goomer para ingresso de colaborador! Let's Goomer!!!
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api/v1
+
+paths:
+  /restaurante:
+    get:
+      tags:
+      - "Restaurante"
+      summary: Retorna lista de restaurantes
+      operationId: "restauranteAll"
+      responses:
+        "200":
+          description: Retorna objeto contendo as informações do restaurante informado como parametro.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArrayOfRestaurante"
+  /restaurante/{id}:
+    get:
+      tags:
+      - "Restaurante"
+      summary: Retorna restaurante especifico, com base no id informado
+      operationId: "restauranteById"
+      parameters:
+      - in: "path"
+        name: id
+        description: "Código do restaurante a ser buscado"
+        schema:
+          type: integer
+        required: true
+      responses:
+        "200":
+          description: Retorna objeto contendo as informações do restaurante informado como parametro.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Restaurante"
+
+  /restaurante/create:
+    post:
+      tags:
+      - "Restaurante"
+      summary: Adiciona um novo restaurante, com base nas informações informadas
+      operationId: "restauranteCreate"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                endereco:
+                  type: string
+                id_foto:
+                  type: integer
+                  nullable: true
+                  default: null
+              required:
+                - nome
+                - endereco
+      responses:
+        "200":
+          description: Retorna objeto contendo as informações do restaurante informado como parametro.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Restaurante"
+  /restaurante/edit/{id}:
+    put:
+      tags:
+      - "Restaurante"
+      summary: Atualiza as informações de um restaurante
+      operationId: "restauranteEdit"
+      parameters:
+      - in: "path"
+        name: id
+        description: "Código do restaurante a ser buscado"
+        schema:
+          type: integer
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                endereco:
+                  type: string
+                id_foto:
+                  type: integer
+                  nullable: true
+                  default: null
+              required:
+                - nome
+                - endereco
+      responses:
+        "200":
+          description: Retorna objeto com as informações da alteração realizada.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Restaurante"
+  /restaurante/delete/{id}:
+    delete:
+      tags:
+      - "Restaurante"
+      summary: Remove um determinado restaurante
+      operationId: "restauranteDelete"
+      parameters:
+      - in: "path"
+        name: id
+        description: "Código do restaurante a ser buscado"
+        schema:
+          type: integer
+        required: true
+      responses:
+        "200":
+          description: Retorna objeto com as informações da alteração realizada.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: boolean
+                    nullable: false
+                    default: false
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer
+
+
+components:
+  schemas:
+    Restaurante:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        endereco:
+          type: string
+        id_foto:
+          type: integer
+          nullable: true
+          default: null
+      required:
+        - id
+        - nome
+        - endereco
+
+    ArrayOfRestaurante:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+          nome:
+            type: string
+          endereco:
+            type: string
+          id_foto:
+            type: integer
+            nullable: true
+            default: null
+          
