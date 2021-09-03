@@ -105,9 +105,12 @@ export class DatabaseCommand {
   //Alguns recursos foram obtidos atravez da documentação: https://node-postgres.com/features/transactions
   async execDeleteCommand(tableName: string, id: number) {
 
-    if (!id) {
+    if (!id) 
       throw new Error(`Código para exclusão não informado. Por favor, verificar.`);
-    }
+
+    const object = await this.execSelectCommand(`SELECT 1 FROM ${tableName} WHERE id = $1 LIMIT 1`, [id]);
+    if (!object)
+      throw new Error(`Registro não encontrador. Por favor, certifique-se de que esteja correto!`);
 
     const client = await this.connection.connect()
     await client.query('BEGIN')
