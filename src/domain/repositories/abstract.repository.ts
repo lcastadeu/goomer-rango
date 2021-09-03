@@ -1,12 +1,16 @@
 import { DatabaseCommand } from '../../infraestructure/database/database.command';
 
-export class AbstractRepository<T> {
+export abstract class AbstractRepository<T> {
 
   protected command: DatabaseCommand;
   protected tableName: string | undefined;
 
   constructor() {
     this.command = new DatabaseCommand();
+  }
+
+  setTableName(name: string) {
+    this.tableName = this.tableName;
   }
 
   async find(id: number) {

@@ -2,7 +2,7 @@ import { HttpRequestCode } from "../../infraestructure/enum/http_request_code.en
 import { ReturnMessage } from "../../infraestructure/return_message";
 import { AbstractService } from '../services/abstract.service';
 
-export class AbstractController<T> {
+export abstract class AbstractController<T> {
 
   protected service: AbstractService<T>;
 

@@ -1,6 +1,6 @@
 import { AbstractRepository } from '../../domain/repositories/abstract.repository';
 
-export class AbstractService<T> {
+export abstract class AbstractService<T> {
 
   protected repository: AbstractRepository<T>;
 

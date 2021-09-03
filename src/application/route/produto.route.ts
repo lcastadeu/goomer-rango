@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { RestauranteController } from '../controllers/restaurante.controller';
 import { ProdutoController } from '../controllers/produto.controller';
 
 const produtoRoute = Router();

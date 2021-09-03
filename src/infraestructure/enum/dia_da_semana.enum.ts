@@ -1,9 +1,9 @@
 export enum DiaDaSemana {
   Dormingo = 1,
-  SegundaFeira = 2,
-  TercaFeira = 3,
-  QuartaFeira = 4,
-  QuitaFeira = 5,
-  SextaFeira = 6,
+  Segunda = 2,
+  Terca = 3,
+  Quarta = 4,
+  Quita = 5,
+  Sexta = 6,
   Sabado = 7
 }
