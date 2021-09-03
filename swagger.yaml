@@ -562,7 +562,7 @@ paths:
             schema:
               type: object
               properties:
-                id_produto:
+                id_promocao_produto:
                   type: integer
                   nullable: false
                 dia:
@@ -601,7 +601,7 @@ paths:
       operationId: "promocaoProdutoDelete"
       parameters:
         - in: "path"
-          name: id_promocao
+          name: id_promocao_produto
           schema:
             type: integer
           required: true

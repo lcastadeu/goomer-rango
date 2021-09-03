@@ -3,6 +3,10 @@ Solução proposta como desafio pela Goomer para ingresso de colaborador! Let's 
 
 # Deploy
 
+## Requirements
+- Node: v12.16.3^
+- Npm: 6.14.4^
+
 
 # Sobre Desafios/Problemas 
 - Maior desafio, foi voltar a trabalhar sem a utilização de um ORM.D

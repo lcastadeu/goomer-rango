@@ -22,7 +22,15 @@ export class HorarioPromocaoProdutoController extends AbstractController<Horario
   
   async add(entidade: HorarioPromocaoProdutoDTO) {
     try {
-      return await new ReturnMessage('');
+      return await new ReturnMessage(await (this.service as HorarioPromocaoProdutoService).add(entidade));
+    } catch (error) {
+      return new ReturnMessage(Error(error).message).setStatusCode(HttpRequestCode.BadRequest);
+    }
+  }
+
+  async delete(id_promocao_produto: number, id_horario: number) {
+    try {
+      return await new ReturnMessage(await (this.service as HorarioPromocaoProdutoService).drop(id_promocao_produto, id_horario));
     } catch (error) {
       return new ReturnMessage(Error(error).message).setStatusCode(HttpRequestCode.BadRequest);
     }

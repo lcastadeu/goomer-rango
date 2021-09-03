@@ -13,8 +13,8 @@ horarioPromocaoProdutoRoute.post('/horario/promocaoproduto/create', async functi
   await response.json(await controller.add(await request.body));
 });
 
-horarioPromocaoProdutoRoute.delete('/horario/promocaoproduto/delete/:id', async function (request, response) {
-  await response.json(await controller.destroy(Number(request.params.id)));
+horarioPromocaoProdutoRoute.delete('/horario/promocaoproduto/delete/:id_promocao_produto/:id_horario', async function (request, response) {
+  await response.json(await controller.delete(Number(request.params.id_promocao_produto), Number(request.params.id_horario)));
 });
 
 export default horarioPromocaoProdutoRoute;

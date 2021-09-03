@@ -5,5 +5,5 @@ export class HorarioPromocaoProdutoDTO {
   dia: DiaDaSemana;
   hora_inicio: string;
   hora_termino: string;
-  exceto_feriado: string;
+  aceitar_feriado: boolean;
 }
