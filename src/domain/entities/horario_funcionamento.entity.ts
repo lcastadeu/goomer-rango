@@ -3,7 +3,7 @@ import { DiaDaSemana } from "../../infraestructure/enum/dia_da_semana.enum";
 export class HorarioFuncionamento {
   id: number;
   dia: DiaDaSemana;
-  horaInicio: string;
-  horaTermino: string;
+  hora_inicio: string;
+  hora_termino: string;
   aceita_feriado: boolean;
 }

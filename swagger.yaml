@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Goome Rango
+  title: Goomer Rango
   description: Solução proposta como desafio pela Goomer para ingresso de colaborador! Let's Goomer!!!
   version: 1.0.0
 servers:
@@ -397,8 +397,238 @@ paths:
                     type: string
                   statusCode:
                     type: integer 
-  
-  ##Promocao
+
+  /promocaoproduto:
+    get:
+      tags:
+      - "Promoção de Produtos"
+      summary: Retorna lista de promoções
+      operationId: "PromocaoProdutoAll"
+      responses:
+        "200":
+          description: Retorna JSon de objetos contendo as informações de todos as promoções
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArrayOfPromocaoProduto"
+  /promocaoproduto/{id}:
+    get:
+      tags:
+      - "Promoção de Produtos"
+      summary: Retorna uma promoção especifica, com base no id informado
+      operationId: "promocaoProdutoById"
+      parameters:
+      - in: "path"
+        name: id
+        description: "Código da promoção a ser buscado"
+        schema:
+          type: integer
+        required: true
+      responses:
+        "200":
+          description: Retorna objeto contendo as informações da promoção
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PromocaoProduto"
+  /promocaoproduto/create:
+    post:
+      tags:
+      - "Promoção de Produtos"
+      summary: Adiciona uma nova promoção, com base nas informações informadas
+      operationId: "promocaoProdutoCreate"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_produto:
+                  type: integer
+                  nullable: false
+                descricao:
+                  type: string
+                preco:
+                    type: number
+                    nullable: false
+                    default: 0.0
+              required:
+                - id_produto
+                - preco
+      responses:
+        "200":
+          description: Retorna objeto contendo as informações do produto.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Produto"
+  /promocaoproduto/edit/{id}:
+    put:
+      tags:
+      - "Promoção de Produtos"
+      summary: Atualiza as informações de uma determinada promoção
+      operationId: "promocaoProdutoEdit"
+      parameters:
+      - in: "path"
+        name: id
+        description: "Código da promoção a ser buscada"
+        schema:
+          type: integer
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_produto:
+                  type: integer
+                  nullable: false
+                descricao:
+                  type: string
+                preco:
+                    type: number
+                    nullable: false
+                    default: 0.0
+              required:
+                - id_produto
+                - preco
+      responses:
+        "200":
+          description: Retorna objeto com as informações da promoção, contendo as alterações
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriaProduto"
+  /promocaoproduto/delete/{id}:
+    delete:
+      tags:
+      - "Promoção de Produtos"
+      summary: Remove uma determinada promoção
+      operationId: "promocaoProdutoDelete"
+      parameters:
+      - in: "path"
+        name: id
+        description: "Código da promoção a ser removida"
+        schema:
+          type: integer
+        required: true
+      responses:
+        "200":
+          description: Retorna um bolleano informando se deu certo a exclusão.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: boolean
+                    nullable: false
+                    default: false
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer  
+
+  /horario/promocaoproduto/{id}:
+    get:
+      tags:
+      - "Horário da Promoção de Produtos"
+      summary: Retorna um JSon contendo um array com os horários cadastrados
+      operationId: "horarioPromocaoProdutoById"
+      parameters:
+      - in: "path"
+        name: id
+        description: "Código do produto na qual deseja ver os horários"
+        schema:
+          type: integer
+        required: true
+      responses:
+        "200":
+          description: Retorna um JSon contendo um array com os horários cadastrados
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PromocaoProduto"
+  /horario/promocaoproduto/create:
+    post:
+      tags:
+      - "Horário da Promoção de Produtos"
+      summary: Adiciona horários as promoções de produtos
+      operationId: "horarioPromocaoProdutoCreate"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_produto:
+                  type: integer
+                  nullable: false
+                dia:
+                  type: integer
+                  $ref: "#/components/schemas/DiaDaSemana"
+                  nullable: false
+                hora_inicio:
+                  type: string
+                  default: "00:00"
+                  nullable: false
+                hora_termino:
+                  type: string
+                  default: "00:00"
+                  nullable: false
+                exceto_feriado:
+                  type: boolean
+                  default: false
+                  nullable: false
+              required:
+                - id_produto
+                - dia
+                - hora_inicio
+                - hora_termino
+      responses:
+        "200":
+          description: Retorna objeto contendo as informações do horário da promocao do produto.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Produto"
+  /horario/promocaoproduto/delete/{id}:
+    delete:
+      tags:
+      - "Horário da Promoção de Produtos"
+      summary: Remove um determinado horário de uma determinada promoção
+      operationId: "promocaoProdutoDelete"
+      parameters:
+        - in: "path"
+          name: id_promocao
+          schema:
+            type: integer
+          required: true
+        - in: "path"
+          name: id_horario
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: Retorna um bolleano informando se deu certo a exclusão.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: boolean
+                    nullable: false
+                    default: false
+                  message:
+                    type: string
+                  statusCode:
+                    type: integer  
+
+
+
   ##Horário Promocao
   ##Horário Funcionamento
 
@@ -413,6 +643,18 @@ components:
           type: integer
         message:
           type: string
+
+    DiaDaSemana:
+      type: integer
+      enum:
+        - Domingo
+        - Segunda
+        - Terca
+        - Quarta
+        - Quinta
+        - Sexta
+        - Sabado
+
     Restaurante:
       type: object
       properties:
@@ -510,3 +752,38 @@ components:
           - nome
           - preco
           - id_categoria
+
+    PromocaoProduto:
+      type: object
+      properties:
+        id:
+          type: integer
+        id_produto:
+          type: integer
+        descricao:
+          type: string
+        preco:
+            type: number
+      required:
+        - id
+        - id_produto
+        - preco
+    ArrayOfPromocaoProduto:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+          id_produto:
+            type: integer
+          descricao:
+            type: string
+          preco:
+              type: number
+        required:
+          - id
+          - id_produto
+          - preco
+
+    

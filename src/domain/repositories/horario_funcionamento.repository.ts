@@ -5,7 +5,7 @@ export class HorarioFuncionamentoRepository extends AbstractRepository<HorarioFu
 
   constructor() {
     super();
-    this.tableName = 'horario_funcionamento';
+    this.tableName = 'horario_restaurante';
   }
 
 
