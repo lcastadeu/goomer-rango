@@ -293,7 +293,7 @@ paths:
     post:
       tags:
       - "Produto"
-      summary: Adiciona uma nova categoria de produto, com base nas informações informadas
+      summary: Adiciona um novo produto, com base nas informações informadas
       operationId: "produtoCreate"
       requestBody:
         content:
@@ -311,6 +311,8 @@ paths:
                   type: integer
                 id_foto:
                   type: integer
+                  nullable: true
+                  default: null
               required:
                 - id_restaurante
                 - nome
@@ -352,6 +354,8 @@ paths:
                   type: integer
                 id_foto:
                   type: integer
+                  nullable: true
+                  default: null
               required:
                 - id_restaurante
                 - nome
@@ -400,6 +404,15 @@ paths:
 
 components:
   schemas:
+    ReturnMessage:
+      type: object
+      properties:
+        data:
+          type: object
+        statusCode:
+          type: integer
+        message:
+          type: string
     Restaurante:
       type: object
       properties:

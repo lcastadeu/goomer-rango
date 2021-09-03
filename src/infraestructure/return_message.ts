@@ -16,6 +16,11 @@ export class ReturnMessage {
 
   public setStatusCode(statusCode: HttpRequestCode) {
     this.statusCode = statusCode;
+    
+    if (this.statusCode === HttpRequestCode.BadRequest) {
+      this.setMessage("Ocorreu um erro durante o processamento. Por favor, tente novamente!");
+    }
+
     return this;
   }
 
