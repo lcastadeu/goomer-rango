@@ -1,5 +1,11 @@
+import { HorarioFuncionamento } from './horario_funcionamento.entity';
+import { PromocaoProduto } from './promocao_produto.entity';
+
 export class HorarioPromocaoProduto {
-  idHorario: number;
-  idProduto: number;
+  id_horario: number;
+  id_produto: number;
   ativo: boolean;
+
+  horarioFuncionario: HorarioFuncionamento;
+  promocaoProduto: PromocaoProduto;
 }
