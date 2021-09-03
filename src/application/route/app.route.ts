@@ -2,6 +2,7 @@ import arquivoRoute from "./arquivo.route";
 import categoriaProdutoRoute from "./categoria_produto.route";
 import restauranteRoute from "./resturante.route";
 import produtoRoute from './produto.route';
+import horarioFuncionamentoRoute from './horario_funcionamento.route';
 
 const versionNumber = '/api/v1';
 
@@ -10,5 +11,6 @@ export default (api: any) => {
   api.use(versionNumber, categoriaProdutoRoute);
   api.use(versionNumber, arquivoRoute);
   api.use(versionNumber, produtoRoute);
+  api.use(versionNumber, horarioFuncionamentoRoute);
 }
 
