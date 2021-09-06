@@ -14,7 +14,7 @@ export abstract class AbstractController<T> {
     try {
       return await new ReturnMessage(await this.service.findAll())
     } catch (error) {
-      return await new ReturnMessage(Error(error).message).setStatusCode(HttpRequestCode.BadRequest);
+      return await new ReturnMessage((error as Error).message).setStatusCode(HttpRequestCode.BadRequest);
     }
   }
 
@@ -22,7 +22,7 @@ export abstract class AbstractController<T> {
     try {
       return await new ReturnMessage(await this.service.find(id));
     } catch (error) {
-      return new ReturnMessage(Error(error).message).setStatusCode(HttpRequestCode.BadRequest);
+      return new ReturnMessage((error as Error).message).setStatusCode(HttpRequestCode.BadRequest);
     }
   }
 
@@ -30,7 +30,7 @@ export abstract class AbstractController<T> {
     try {
       return await new ReturnMessage(await this.service.save(entidade));
     } catch (error) {
-      return new ReturnMessage(Error(error).message).setStatusCode(HttpRequestCode.BadRequest);
+      return new ReturnMessage((error as Error).message).setStatusCode(HttpRequestCode.BadRequest);
     }
   }
 
@@ -38,7 +38,7 @@ export abstract class AbstractController<T> {
     try {
       return await new ReturnMessage(await this.service.update(id, entidade));
     } catch (error) {
-      return new ReturnMessage(Error(error).message).setStatusCode(HttpRequestCode.BadRequest);
+      return new ReturnMessage((error as Error).message).setStatusCode(HttpRequestCode.BadRequest);
     }
   }
 
@@ -46,7 +46,7 @@ export abstract class AbstractController<T> {
     try {
       return await new ReturnMessage(await this.service.delete(id));
     } catch (error) {
-      return new ReturnMessage(Error(error).message).setStatusCode(HttpRequestCode.BadRequest);
+      return new ReturnMessage((error as Error).message).setStatusCode(HttpRequestCode.BadRequest);
     }
   }
   

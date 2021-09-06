@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+  goomerrango-api:
+    container_name: goomerrango-api
+    image: node:14.17.6
+    build: .
+    restart: always
+    command: npm run start:dev
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000
+    links: 
+      - postgres
+    networks: 
+      - default
+    volumes:
+     - .:/usr/src/app
+  postgres:
+    image: postgres:13.4
+    container_name: goomerrango-db
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks: 
+      - default
+    ports:
+      - 5400:5432
+volumes:
+  postgres:
+networks: 
+  default:
+    driver: bridge
+    name: goomerrango

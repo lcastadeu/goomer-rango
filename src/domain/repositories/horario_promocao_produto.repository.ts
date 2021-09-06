@@ -9,8 +9,8 @@ export class HorarioPromocaoProdutoRepository extends AbstractRepository<Horario
     this.tableName = 'horario_promocao_produto';
   }
 
-  async drop(id_promocao_produto, id_horario) {
-    const client = await database.connect();
+  async drop(id_promocao_produto: number, id_horario: number) {
+    const client = await database().connect();
     await client.query('BEGIN')
     return await client.query(`DELETE FROM ${this.tableName} WHERE id_promocao_produto  = $1 AND id_horario = $2`, [id_promocao_produto, id_horario]).then(x => {
       client.query('COMMIT')
