@@ -5,10 +5,10 @@ import { Pool } from 'pg';
 //Classe criada para ser a responsavel por realizar a transação com o banco de dados.
 export class DatabaseCommand {
 
-  protected connection: Pool;
+  protected connection;
 
   constructor() {
-    this.connection = database;
+    this.connection = database();
   }
 
   //Metodo reponsável por realizar consultas!

@@ -1,17 +1,16 @@
-import express from 'express';
+import express, { Application, Request, Response } from 'express';
 import { HttpRequestCode } from './infraestructure/enum/http_request_code.enum';
 import { ReturnMessage } from './infraestructure/return_message';
-import database from './infraestructure/database/database.connection';
 import swaggerJSDoc, { OAS3Options } from "swagger-jsdoc";
 import { readFileSync } from 'fs';
 import * as path from 'path';
 import bodyParser from 'body-parser';
 import appRoute from './application/route/app.route';
+import database from './infraestructure/database/database.connection';
 
+const api: Application = express();
 
-const api = express();
 var cors = require('cors')
-
 api.use(cors());
 
 const swaggerUi = require('swagger-ui-express');
@@ -41,18 +40,25 @@ const specs = swaggerJSDoc({
 
 api.use('/api-doc', swaggerUi.serve, swaggerUi.setup(specs))
 
-api.use(bodyParser());
+api.use(bodyParser.json());
+api.use(bodyParser.urlencoded({ extended: true }));
 
-api.get('/', function (_, res) {
+api.get('/', (req: Request, res: Response) => {
   res.status(HttpRequestCode.Ok).json(new ReturnMessage('Serviço Ativo!'));
 });
 
 appRoute(api);
 
 api.listen(3000, async () => {
-  const scriptStartup = readFileSync(path.join(__dirname, '/infraestructure/seed/startup.sql'), { encoding: 'utf-8' })
-  await database.connect().then(async pool => {
-    await pool.query(scriptStartup);
+  await database(true).connect().then(async pool => {
+    await pool.query("select * from pg_database where datname = 'goomer'").then(async x => {
+      if(x.rowCount <= 0) {
+        pool.query("CREATE DATABASE goomer;").then(db => {
+          let script = readFileSync(path.join(__dirname, '/files/startup.table.sql'), { encoding: 'utf-8' });
+          database().query(script);
+        });
+      }
+    });
   });
   console.log('Serviço Ativo');
 });

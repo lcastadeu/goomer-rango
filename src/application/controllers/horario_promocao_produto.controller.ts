@@ -16,7 +16,7 @@ export class HorarioPromocaoProdutoController extends AbstractController<Horario
     try {
       return await new ReturnMessage(await this.service.find(id));
     } catch (error) {
-      return new ReturnMessage(Error(error).message).setStatusCode(HttpRequestCode.BadRequest);
+      return new ReturnMessage((error as Error).message).setStatusCode(HttpRequestCode.BadRequest);
     }
   }
   
@@ -24,7 +24,7 @@ export class HorarioPromocaoProdutoController extends AbstractController<Horario
     try {
       return await new ReturnMessage(await (this.service as HorarioPromocaoProdutoService).add(entidade));
     } catch (error) {
-      return new ReturnMessage(Error(error).message).setStatusCode(HttpRequestCode.BadRequest);
+      return new ReturnMessage((error as Error).message).setStatusCode(HttpRequestCode.BadRequest);
     }
   }
 
@@ -32,7 +32,7 @@ export class HorarioPromocaoProdutoController extends AbstractController<Horario
     try {
       return await new ReturnMessage(await (this.service as HorarioPromocaoProdutoService).drop(id_promocao_produto, id_horario));
     } catch (error) {
-      return new ReturnMessage(Error(error).message).setStatusCode(HttpRequestCode.BadRequest);
+      return new ReturnMessage((error as Error).message).setStatusCode(HttpRequestCode.BadRequest);
     }
   }
   
