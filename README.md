@@ -24,14 +24,19 @@ Para iniciar o projeto está disponivel duas opções, na qual fica optativo. Ba
 - PostgreSQL
 - Docker (Caso utilize docker, ele já terá um banco de dados sendo levantado)
 
-#### Terminal
-- Primeiro é necessário configura o arquivo de configuração do banco de dados.
+
+
+Iniciamos realizando o checkout do projeto
 ```bash
-npm run start:dev
+git clone https://github.com/lcastadeu/goomer-rango.git
+```
+- Instalar as dependencias. No terminal executar o comando abaixo.
+```bash
+npm i
 ```
 - Posteriormente no terminal executar o comando abaixo.
 ```bash
-npm run start:dev
+npm run start
 ```
 #### Docker
 ```bash
