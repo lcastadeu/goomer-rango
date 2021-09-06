@@ -18,7 +18,7 @@ const specs = swaggerJSDoc({
   swaggerDefinition: {
     openapi: "3.0.0",
     info: {
-      title: "Goome Rango",
+      title: "Goomer Rango",
       version: "1.0.0",
       description: "Solução proposta como desafio pela Goomer para ingresso de colaborador! Let's Goomer!!!",
       contact: {
