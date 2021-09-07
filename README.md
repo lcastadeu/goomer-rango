@@ -45,4 +45,4 @@ docker-compose up --b
 ```
 
 # Swagger
-- Basta acessar: http://localhost:3000/api-docs
+- Basta acessar: http://localhost:3000/api-doc
